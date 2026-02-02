@@ -174,6 +174,7 @@ CREATE POLICY "Admin full access on stock_movements" ON stock_movements
   FOR ALL
   USING (auth.uid() IN (SELECT id FROM users WHERE role_id = (SELECT id FROM roles WHERE name = 'admin')));
 CREATE POLICY "Cashier own access on stock_movements" ON stock_movements
+  FOR ALL
   USING (user_id = auth.uid()) WITH CHECK (user_id = auth.uid());
 
 -- For sales/sale_items/payments: Admins full, Cashiers insert/select own
