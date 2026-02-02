@@ -125,7 +125,7 @@ export const db = new PosDB();
 
 /* ---------- Expose for browser console (DEV only) ---------- */
 
-if (typeof window !== 'undefined') {
-  // @ts-ignore
+if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
+  // `@ts-ignore`
   window.db = db;
 }
