@@ -201,3 +201,25 @@ CREATE POLICY "Cashier own access on payments" ON payments
 CREATE POLICY "Admin full access on sync_logs" ON sync_logs
   FOR ALL
   USING (auth.uid() IN (SELECT id FROM users WHERE role_id = (SELECT id FROM roles WHERE name = 'admin')));
+
+
+
+-- Function to handle new auth user
+CREATE OR REPLACE FUNCTION handle_new_user()
+RETURNS TRIGGER AS $$
+BEGIN
+  INSERT INTO users (id, email, role_id, full_name)
+  VALUES (
+    NEW.id,
+    NEW.email,
+    (SELECT id FROM roles WHERE name = 'cashier'), -- Default cashier; admin can change
+    NEW.raw_user_meta_data->>'full_name' -- If provided in signup metadata
+  );
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
+
+-- Trigger
+CREATE OR REPLACE TRIGGER on_auth_user_created
+AFTER INSERT ON auth.users
+FOR EACH ROW EXECUTE FUNCTION handle_new_user();  
