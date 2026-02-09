@@ -52,7 +52,7 @@ export default function Login() {
         />
       </div>
       <Button type="submit" className="w-full" disabled={loading}>Sign In</Button>
-      <Button onClick={() => router.push('/register')} className="w-full">Register</Button>
+      <Button type="button" onClick={() => router.push('/register')} className="w-full">Register</Button>
     </form>
     
     
