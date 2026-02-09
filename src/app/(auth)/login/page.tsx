@@ -13,11 +13,14 @@ export default function Login() {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    const { error } = await supabase.auth.signInWithPassword({ email, password });
-    if (error) alert(error.message);
-    else router.push('/dashboard');
-    setLoading(false);
-    };
+    try {
+      const { error } = await supabase.auth.signInWithPassword({ email, password });
+      if (error) alert(error.message);
+      else router.push('/dashboard');
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
     <form className="space-y-6" onSubmit={handleLogin}>
       <h2 className="text-2xl font-bold text-center">Login</h2>
