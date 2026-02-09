@@ -110,7 +110,7 @@ export class PosDB extends Dexie {
   constructor() {
     super('PosDB');
 
-    this.version(1).stores({
+    this.version(2).stores({ // Bump version si changes
       roles: 'id, updated_at, sync_status',
       users: 'id, updated_at, sync_status',
       categories: 'id, updated_at, sync_status',
