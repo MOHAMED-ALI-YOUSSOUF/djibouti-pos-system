@@ -1,0 +1,5 @@
+{
+  "name": "Djibouti POS",
+  "start_url": "/dashboard/pos",
+  "display": "standalone"
+}

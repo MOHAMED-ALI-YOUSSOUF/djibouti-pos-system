@@ -89,6 +89,11 @@ export interface LocalSyncLog {
   created_at: string;
 }
 
+export interface LocalSession {
+  user_id: string;
+  role: string;
+  expires_at: string;
+}
 /* ---------- Dexie DB ---------- */
 
 export class PosDB extends Dexie {
